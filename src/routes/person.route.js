@@ -1,9 +1,11 @@
 const { Router } = require('express');
 const router = Router();
+const verifyToken = require('../middleware/verifyToken');
 const personController = require('../controllers/person.controller');
-router.get('/', personController.getPersons);
+router.get('/', verifyToken, personController.getPersons);
 router.post('/', personController.createPerson);
-router.get('/:id', personController.getPerson);
-router.delete('/:id', personController.deletePerson);
-router.put('/:id', personController.updatePerson);
+router.get('/:id', verifyToken, personController.getPerson);
+router.delete('/:id', verifyToken, personController.deletePerson);
+router.put('/:id', verifyToken, personController.updatePerson);
+router.post('/login', personController.login);
 module.exports = router;
